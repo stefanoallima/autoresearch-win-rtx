@@ -1,0 +1,16 @@
+═══════════════════════════════════════
+**SUDD SESSION COMPLETE**
+═══════════════════════════════════════
+**Mode**: brown
+**Change**: `discovered_current-state-refresher-session-start` → **DONE**
+**Tasks completed**: 4/4 (T1 preflight refresh call, T2 Inbox truth guard, T3 landmark-comment discoverability, T4 tests green)
+**Lessons recorded**: 1 (HIGH confidence — proposals can mis-describe symptoms after filesystem shifts; grep-assertion tests are proportional for one-line wiring)
+**Merged to main**: 6d3f96e
+═══════════════════════════════════════
+
+**What landed**:
+- `sudd auto` now refreshes `CURRENT_STATE.md` at session-start (after doctor, before port) — cold-start reads see filesystem-truthful counts and a fresh `refreshed-at` timestamp instead of the prior session's stale write
+- Two regression guards: landmark-grep + Inbox filesystem-truth
+- Architecture/specs/design/summary/lessons all in archive
+
+**Known pre-existing issue** (documented, out of scope): `TestLessonHeadingMatchesArchiveLocation` fails for two prior STUCK changes with `[DONE]` lesson headings. Next queued change `discovered_dirty-auto-cure` is scoped to fix that class of drift.

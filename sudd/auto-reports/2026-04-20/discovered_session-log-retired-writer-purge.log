@@ -1,0 +1,20 @@
+```
+═══════════════════════════════════════
+SUDD SESSION COMPLETE
+═══════════════════════════════════════
+Mode: brown
+Change: discovered_session-log-retired-writer-purge_01
+Outcome: DONE
+Commit: e709b73
+═══════════════════════════════════════
+```
+
+**What shipped:**
+- Deleted `appendSessionLog` writer + caller in `sudd-go/internal/auto/runner.go`
+- Deleted `sudd/memory/session-log.md` (file is retired — absence > pointer)
+- Added `TestSessionLogIsAbsent` (4 subtests) + inverted the two existing zombie-sweep tests
+- Stderr now prints a ✓ success line on zombie sweeps so operators still see them in `auto-reports/{date}/{change}.log`
+
+**Proposal's literal "redirect to `auto-reports/{date}/summary.md`" was rejected** — that file is rewritten fresh each session and would lose mid-session appends. Rationale documented in archive's `specs.md` "Redirect decision" and `lessons.md`.
+
+**Validation:** `go test ./...` green (10/10 packages). 5 proposals remain in auto queue.

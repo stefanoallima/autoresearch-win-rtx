@@ -1,0 +1,30 @@
+All 11 todos complete. SUDD session report:
+
+```
+═══════════════════════════════════════
+SUDD SESSION COMPLETE
+═══════════════════════════════════════
+Mode: brown
+Change: discovered_dirty-auto-cure_01 → DONE (98/100 EXEMPLARY)
+Tasks completed: 6/6
+Tasks stuck: 0
+Tasks blocked: 0
+Lessons learned: 1 new (memory/lessons.md)
+═══════════════════════════════════════
+```
+
+## Summary
+
+`sudd cure-dirty` shipped end-to-end.
+
+**Created**: `internal/auto/cure.go` (~250 LOC), `internal/auto/cure_test.go` (5 tests, all green), `cmd/sudd/cure_dirty.go` (CLI). **Edited**: `cmd/sudd/auto.go` (fail-soft preflight hook).
+
+**AC verification**:
+- AC #1+#2 covered by `CureDirty` flow (whitelist → cure → re-validate → rename → paper trail)
+- AC #3+#4 by tests (`TestCureDirtyHandlesMissingLessonsHeading`, `TestCureDirtyRefusesUnknownChecks`)
+- AC #5 verified live: `sudd cure-dirty .` cured the parked `discovered_audit_runner-stuck-requires-reason_01` in <1s; `dirty/` now empty; archive + paper-trail line both present
+- AC #6 cure-dirty surface green; one pre-existing failure on baseline `main` (unrelated `TestLessonHeadingMatchesArchiveLocation` for 3 prior STUCK changes)
+
+**Pre-existing test failure**: `TestLessonHeadingMatchesArchiveLocation` flags 3 lessons tagged `[DONE]` for changes that actually live in `stuck/`. Reproduces on baseline `main` (verified via `git stash`). Out of scope for this change but worth a follow-up.
+
+**Not committed** — git status shows untracked + modified files. Awaiting your green light to commit (per durable instruction: confirm before risky shared-state actions).

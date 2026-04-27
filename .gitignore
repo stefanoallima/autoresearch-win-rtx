@@ -18,3 +18,13 @@ AGENTS.md
 
 # Experimental code/artifacts
 dev/
+
+# Windows reserved name
+nul
+**/nul
+
+# Large model checkpoints
+*.pt
+*.ckpt
+*.pth
+*.safetensors
